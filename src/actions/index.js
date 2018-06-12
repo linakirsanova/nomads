@@ -9,13 +9,15 @@ export const toggleIsOpen = createAction('TOGGLE_IS_OPEN');
 export const fetchLocations = () => async (dispatch) => {
   dispatch(fetchLocationsRequest());
   try {
-    const url = "http://localhost:3000";
+    // const url = "https://nomad-map.herokuapp.com/nomad_cities/index";
+    const url = "http://localhost:3000/nomad_cities/index";
     const response = await axios.get(url);
     const updatedLocations = response.data.map(user => {
       return {...user, isOpen: false}
     });
     dispatch(fetchLocationsSuccess(updatedLocations));
   } catch (e) {
+    console.log(e);
     dispatch(fetchLocationsFailure());
   }
 };
