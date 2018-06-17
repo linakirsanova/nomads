@@ -8,7 +8,7 @@ export default class Map extends React.Component {
 
 	handleMarkerClick = entry => {
 		this.props.toggleIsOpen(entry);
-  }
+	}
 
 	render() {
 		return (
@@ -24,6 +24,19 @@ export default class Map extends React.Component {
 		)
 	}
 }
+
+// const renderUserRow = (avatarUrl, nickname, i) => {
+// 	const openLine = (i % 3 === 0);
+// 	const closeLine = ((i + 1) % 3 === 0);
+// 	const cell = (
+// 		<React.Fragment>
+// 			<td><img src={avatarUrl} height="25" width="25" alt="avatar"/></td>
+// 			<td style={{verticalAlign: 'middle'}}><span>{`${nickname}`}</span></td>
+// 		</React.Fragment>
+// 	);
+
+// 	//
+// }
 
 const GoogleMapComponent = withScriptjs(withGoogleMap((props) => {
 	return (
@@ -41,26 +54,21 @@ const GoogleMapComponent = withScriptjs(withGoogleMap((props) => {
 						onMouseOver={() => props.onToggleOpen(entry)}
 						onMouseOut={() => props.onToggleOpen(entry)}>
 						{isOpen && <InfoWindow>
-							<div>
-								{`city: ${city}, users:`}
-								<ul style={{listStyleType: 'none', padding: 3, margin: 0 }}>
+							<React.Fragment >
+								<h4>{`City: ${city}`}</h4>
+								<div className='container'>
 									{
 										JSON.parse(user).map((el, i) => {
-											// (i + 1) % 3 === 0 || i === 0
 											return (
-												<li style={{ position: 'relative' }}>
-													<table>
-														<tr>
-															<td><img src={avatars[i]} height="25" width="25" alt="avatar"/></td>
-															<td style={{verticalAlign: 'middle'}}><span>{`${el}`}</span></td>
-														</tr>
-													</table>
-												</li>
+												<div className='user-profile'>
+													<img className='avatar' src={avatars[i]} height="32" width="32" alt="avatar"/>
+													<div className='nickname'>{`${el}`}</div>
+												</div>
 											)
 										})
 									}
-								</ul>
-							</div>
+								</div>
+							</React.Fragment>
 						</InfoWindow>}
 					</Marker>
 				)}
@@ -68,3 +76,25 @@ const GoogleMapComponent = withScriptjs(withGoogleMap((props) => {
 		</GoogleMap>
 	)}
 ))
+
+
+{/* <div>
+	{`city: ${city}, users:`}
+	<ul style={{listStyleType: 'none', padding: 3, margin: 0 }}>
+		{
+			JSON.parse(user).map((el, i) => {
+				// (i + 1) % 3 === 0 || i === 0
+				return (
+					<li style={{ position: 'relative' }}>
+						<table>
+							<tr>
+								<td><img src={avatars[i]} height="25" width="25" alt="avatar"/></td>
+								<td style={{verticalAlign: 'middle'}}><span>{`${el}`}</span></td>
+							</tr>
+						</table>
+					</li>
+				)
+			})
+		}
+	</ul>
+</div> */}
